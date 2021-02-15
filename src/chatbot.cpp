@@ -60,17 +60,26 @@ ChatBot& ChatBot::operator=(const ChatBot &source){
     return *this;
 }; // copy assignment operator
 
-ChatBot::ChatBot(const ChatBot &&source){
+ChatBot::ChatBot(ChatBot &&source){
     std::cout << "Calling MOVE CONSTRUCTOR" << std::endl;
     _chatLogic = source._chatLogic;
     _rootNode = source._rootNode;
     *_image = *source._image;
+
+    source._chatLogic = nullptr;
+    source._rootNode = nullptr;
+    delete source._image;
 }; // move constructor
-ChatBot& ChatBot::operator=(const ChatBot &&source){
+ChatBot& ChatBot::operator=(ChatBot &&source){
     std::cout << "Calling MOVE ASSIGNMENT OPERATOR" << std::endl;
     _chatLogic = source._chatLogic;
     _rootNode = source._rootNode;
     *_image = *source._image;
+
+    source._chatLogic = nullptr;
+    source._rootNode = nullptr;
+    delete source._image;
+
     return *this;
 }; // move assignment operator
 

@@ -49,14 +49,16 @@ ChatBot::ChatBot(const ChatBot &source){
     std::cout << "Chatbot Copy Constructor" << std::endl;
     _chatLogic = source._chatLogic;
     _rootNode = source._rootNode;
-    *_image = *source._image;
+    _currentNode = source._currentNode;
+    _image = source._image;
 } // copy constructor
 
 ChatBot& ChatBot::operator=(const ChatBot &source){
     std::cout << "Chatbot Copy Assignment Operator" << std::endl;
     _chatLogic = source._chatLogic;
     _rootNode = source._rootNode;
-    *_image = *source._image;
+    _currentNode = source._currentNode;
+    _image = source._image;
     return *this;
 }; // copy assignment operator
 
@@ -64,24 +66,32 @@ ChatBot::ChatBot(ChatBot &&source){
     std::cout << "Chatbot Move Constructor" << std::endl;
     _chatLogic = source._chatLogic;
     _rootNode = source._rootNode;
-    *_image = *source._image;
-    _chatLogic->SetChatbotHandle(this);
-
-    source._chatLogic = nullptr;
-    source._rootNode = nullptr;
-    source._image = nullptr;
-
-}; // move constructor
-ChatBot& ChatBot::operator=(ChatBot &&source){
-    std::cout << "Chatbot Move Assignment Operator" << std::endl;
-    _chatLogic = source._chatLogic;
-    _rootNode = source._rootNode;
+    _currentNode = source._currentNode;
     _image = source._image;
     _chatLogic->SetChatbotHandle(this);
 
     source._chatLogic = nullptr;
     source._rootNode = nullptr;
-    source._image = nullptr;
+    source._currentNode = nullptr;
+    source._image = NULL;
+
+}; // move constructor
+ChatBot& ChatBot::operator=(ChatBot &&source){
+    std::cout << "Chatbot Move Assignment Operator" << std::endl;
+
+    if (this == &source)
+    return *this;
+
+    _chatLogic = source._chatLogic;
+    _rootNode = source._rootNode;
+    _currentNode = source._currentNode;
+    _image = source._image;
+    _chatLogic->SetChatbotHandle(this);
+
+    source._chatLogic = nullptr;
+    source._rootNode = nullptr;
+    source._currentNode = nullptr;
+    source._image = NULL;
 
     return *this;
 }; // move assignment operator
